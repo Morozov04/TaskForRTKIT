@@ -1,7 +1,5 @@
 package org.example.myCollections;
 
-import java.util.Arrays;
-
 public class Persons<T> {
     private final int SIZE = 16;
     private int pointer = 0;
