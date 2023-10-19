@@ -2,7 +2,7 @@ package org.example.dataLoad;
 
 import org.example.dataGroups.ClassroomDataGroups;
 import org.example.dataGroups.PersonAgeDataGroups;
-import org.example.dataGroups.PersonNameDataGroups;
+import org.example.dataGroups.PersonSurnameDataGroups;
 import org.example.person.Person;
 import org.example.person.SubjectGrades;
 
@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class DataLoad {
-    public static void loadStudentsData(ClassroomDataGroups classroomDataGroups, PersonAgeDataGroups personAgeDataGroups, PersonNameDataGroups personNameDataGroups) {
+    public static void loadStudentsData(ClassroomDataGroups classroomDataGroups, PersonAgeDataGroups personAgeDataGroups, PersonSurnameDataGroups personNameDataGroups) {
         try {
             File file = new File("src/main/resources/students.csv");
             Scanner scanner = new Scanner(file);
@@ -26,7 +26,7 @@ public class DataLoad {
                                                 Integer.parseInt(values[3]),
                                                 new SubjectGrades(
                                                         Integer.parseInt(values[4]),
-                                                        Integer.parseInt(values[4]),
+                                                        Integer.parseInt(values[5]),
                                                         Integer.parseInt(values[6]),
                                                         Integer.parseInt(values[7]),
                                                         Integer.parseInt(values[8]),

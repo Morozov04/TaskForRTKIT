@@ -6,15 +6,15 @@ import org.example.person.Person;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonNameDataGroups {
+public class PersonSurnameDataGroups {
 
     private final Map<Character, Persons<Person>> DATA = new HashMap<>();
 
     public void addPerson(Person person) {
-        if (!DATA.containsKey(person.getNAME().charAt(0))) {
-            DATA.put(person.getNAME().charAt(0), new Persons<>());
+        if (!DATA.containsKey(person.getFAMILY().charAt(0))) {
+            DATA.put(person.getFAMILY().charAt(0), new Persons<>());
         }
-        DATA.get(person.getNAME().charAt(0)).add(person);
+        DATA.get(person.getFAMILY().charAt(0)).add(person);
     }
 
     public Persons<Person> getPersons(char firstLetter) {

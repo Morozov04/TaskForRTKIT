@@ -42,6 +42,6 @@ public class Person{
                 ", name='" + NAME + '\'' +
                 ", age=" + AGE +
                 ", group=" + GROUP +
-                '}' + "\n";
+                '}';
     }
 }

@@ -2,22 +2,32 @@ package org.example;
 
 import org.example.dataGroups.ClassroomDataGroups;
 import org.example.dataGroups.PersonAgeDataGroups;
-import org.example.dataGroups.PersonNameDataGroups;
+import org.example.dataGroups.PersonSurnameDataGroups;
 import org.example.dataLoad.DataLoad;
 import org.example.person.Methods;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+
         ClassroomDataGroups classroomDataGroups = new ClassroomDataGroups();
         PersonAgeDataGroups personAgeDataGroups = new PersonAgeDataGroups();
-        PersonNameDataGroups personNameDataGroups = new PersonNameDataGroups();
+        PersonSurnameDataGroups personSurnameDataGroups = new PersonSurnameDataGroups();
 
-        DataLoad.loadStudentsData(classroomDataGroups, personAgeDataGroups, personNameDataGroups);
+        DataLoad.loadStudentsData(classroomDataGroups, personAgeDataGroups, personSurnameDataGroups);
 
-        System.out.println(classroomDataGroups.getPersons(8).size());
-        System.out.println(personAgeDataGroups.getPersons(10).size());
-        System.out.println(personNameDataGroups.getPersons('П').size());
+        //System.out.println(classroomDataGroups.getPersons(2).size());
+        //System.out.println(personAgeDataGroups.getPersons(8).size());
+        //System.out.println(personSurnameDataGroups.getPersons('П').size());
 
-        System.out.println(Methods.calculateAverageGrade(classroomDataGroups));
+        Methods.calculateAverageGrade(classroomDataGroups, 10, 11);
+        Methods.findExcellentStudents(personAgeDataGroups, 15, 18, 5);
+
+        System.out.print("\nВведите фамилию ученика: ");
+
+        Methods.searchPersonBySurname(personSurnameDataGroups, in.nextLine());
     }
 }

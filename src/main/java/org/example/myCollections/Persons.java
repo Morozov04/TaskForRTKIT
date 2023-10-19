@@ -1,8 +1,9 @@
 package org.example.myCollections;
 
+import java.util.Arrays;
+
 public class Persons<T> {
     private final int SIZE = 16;
-    private final int CUT = 4;
     private int pointer = 0;
     private Object[] array = new Object[SIZE];
 
@@ -21,7 +22,7 @@ public class Persons<T> {
             array[i] = array[i+1];
         array[pointer] = null;
         pointer--;
-        if (array.length > SIZE && pointer < array.length / CUT)
+        if (array.length > SIZE && pointer < array.length / 4)
             recreation(array.length/2);
     }
 
