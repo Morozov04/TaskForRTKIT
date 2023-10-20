@@ -6,7 +6,7 @@ import org.example.person.Person;
 
 public class PersonSurnameDataGroups {
 
-    //private final Map<Character, List<Person>> map = new HashMap<>();
+    //private final Map<Character, PersonsArrayList> map = new HashMap<>();
     private final PersonsHashMap<Character> DATA = new PersonsHashMap<>();
 
     public void addPerson(Person person) {

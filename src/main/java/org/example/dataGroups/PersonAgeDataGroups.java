@@ -6,7 +6,7 @@ import org.example.person.Person;
 
 public class PersonAgeDataGroups {
 
-    //private final Map<Integer, List<Person>> map = new HashMap<>();
+    //private final Map<Integer, PersonsArrayList> map = new HashMap<>();
     private final PersonsHashMap<Integer> DATA = new PersonsHashMap<>();
 
     public void addPerson(Person person){
