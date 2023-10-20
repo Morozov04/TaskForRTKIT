@@ -27,3 +27,15 @@ public class Main {
         Methods.searchPersonBySurname(personSurnameDataGroups, in.nextLine());
     }
 }
+
+//Метод calculateAverageGrade (Вычисление средней оценки в старших классах)
+//  использует объект класса ClassroomDataGroups, потому что classroomDataGroups содержит в себе
+//  пары ключ/значение: ключ - "класс ученика" / значение - "ученик"
+
+//Метод searchPersonByAssessment (Поиск всех отличников, старше 14 лет)
+//  использует объект класса PersonAgeDataGroups, потому что personAgeDataGroups содержит в себе
+//  пары ключ/значение: ключ - "возраст ученика" / значение - "ученик"
+
+//Метод searchPersonBySurname (Поиск ученика по фамилии)
+//  использует объект класса PersonSurnameDataGroups, потому что personSurnameDataGroups содержит в себе
+//  пары ключ/значение: ключ - "первая буква фамилии ученика" / значение - "ученик"
