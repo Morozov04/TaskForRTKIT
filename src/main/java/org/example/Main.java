@@ -25,8 +25,6 @@ public class Main {
         System.out.print("\nВведите фамилию ученика: ");
 
         Methods.searchPersonBySurname(personSurnameDataGroups, in.nextLine());
-
-
     }
 
     //Метод calculateAverageGrade (Вычисление средней оценки в старших классах)

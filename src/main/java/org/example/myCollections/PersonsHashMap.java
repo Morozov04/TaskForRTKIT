@@ -1,10 +1,12 @@
 package org.example.myCollections;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.Set;
 
-public class PersonsHashMap<K> extends AbstractMap<K, PersonsArrayList> {
-    private static final int DEFAULT_CAPACITY = 100;
-    private List<Entry<K, PersonsArrayList>>[] lists;
+public class PersonsHashMap<K> extends AbstractMap {
+    private static final int DEFAULT_CAPACITY = 10000;
+    private Entry<K, PersonsArrayList>[] buckets;
     private int size;
 
     public PersonsHashMap() {
@@ -12,110 +14,95 @@ public class PersonsHashMap<K> extends AbstractMap<K, PersonsArrayList> {
     }
 
     public PersonsHashMap(int capacity) {
-        lists = new ArrayList[capacity];
+        buckets = new Entry[capacity];
         size = 0;
     }
 
-    @Override
-    public boolean containsKey(Object key) {
-        int index = getIndex((K) key);
-        List<Entry<K, PersonsArrayList>> list = lists[index];
-        if (list != null) {
-            for (Entry<K, PersonsArrayList> entry : list) {
-                if (entry.getKey().equals(key)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public PersonsArrayList put(K key, PersonsArrayList value) {
+    public void put(K key, PersonsArrayList value) {
         int index = getIndex(key);
-        List<Entry<K, PersonsArrayList>> list = lists[index];
-        if (list == null) {
-            list = new ArrayList<>();
-            lists[index] = list;
-        } else {
-            for (Entry<K, PersonsArrayList> entry : list) {
-                if (entry.getKey().equals(key)) {
-                    entry.setValue(value);
-                    return value;
-                }
+        Entry<K, PersonsArrayList> entry = buckets[index];
+
+        while (entry != null) {
+            if (entry.getKey().equals(key)) {
+                entry.setValue(value);
+                return;
             }
+            entry = entry.getNext();
         }
-        list.add(new Entry<>(key, value));
+
+        Entry<K, PersonsArrayList> newEntry = new Entry<>(key, value);
+        newEntry.setNext(buckets[index]);
+        buckets[index] = newEntry;
         size++;
-
-        if ((float) size / lists.length > 0.75f) {
-            resize();
-        }
-        return value;
-    }
-
-    @Override
-    public Set<Map.Entry<K, PersonsArrayList>> entrySet() {
-        Set<Map.Entry<K,PersonsArrayList>> es = new HashSet<>();
-        for (Map.Entry<K, PersonsArrayList> entry : es) {
-            while (entry != null) {
-                es.add(entry);
-                entry = (Map.Entry<K, PersonsArrayList>) entry.getKey();
-            }
-        }
-        return es;
     }
 
     @Override
     public PersonsArrayList get(Object key) {
         int index = getIndex((K) key);
-        List<Entry<K, PersonsArrayList>> list = lists[index];
-        if (list != null) {
-            for (Entry<K, PersonsArrayList> entry : list) {
-                if (entry.getKey().equals(key)) {
-                    return entry.getValue();
-                }
+        Entry<K, PersonsArrayList> entry = buckets[index];
+
+        while (entry != null) {
+            if (entry.getKey().equals(key)) {
+                return entry.getValue();
             }
+            entry = entry.getNext();
         }
+
         return null;
     }
 
     @Override
-    public PersonsArrayList getOrDefault(Object key, PersonsArrayList defaultValue) {
-        PersonsArrayList value = get(key);
-        return value != null ? value : defaultValue;
+    public boolean containsKey(Object key) {
+        int index = getIndex((K) key);
+        Entry<K, PersonsArrayList> entry = buckets[index];
+
+        while (entry != null) {
+            if (entry.getKey().equals(key)) {
+                return true;
+            }
+            entry = entry.getNext();
+        }
+
+        return false;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public Set<Map.Entry> entrySet() {
+        return null;
+    }
+
+    public PersonsArrayList getOrDefault(K key, PersonsArrayList defaultValue) {
+        int index = getIndex(key);
+        Entry<K, PersonsArrayList> entry = buckets[index];
+
+        while (entry != null) {
+            if (entry.getKey().equals(key)) {
+                return entry.getValue();
+            }
+            entry = entry.getNext();
+        }
+
+        return defaultValue;
     }
 
     private int getIndex(K key) {
-        return Math.abs(key.hashCode()) % lists.length;
-    }
-
-    private void resize() {
-        int newCapacity = lists.length * 2;
-        List<Entry<K, PersonsArrayList>>[] arrayLists = new ArrayList[newCapacity];
-        for (List<Entry<K, PersonsArrayList>> bucket : lists) {
-            if (bucket != null) {
-                for (Entry<K, PersonsArrayList> entry : bucket) {
-                    int newIndex = Math.abs(entry.getKey().hashCode()) % newCapacity;
-                    List<Entry<K, PersonsArrayList>> arrayList = arrayLists[newIndex];
-                    if (arrayList == null) {
-                        arrayList = new ArrayList<>();
-                        arrayLists[newIndex] = arrayList;
-                    }
-                    arrayList.add(entry);
-                }
-            }
-        }
-        lists = arrayLists;
+        return key.hashCode() % buckets.length;
     }
 
     private static class Entry<K, V> {
-        private K key;
+        private final K key;
         private V value;
+        private Entry<K, V> next;
 
         public Entry(K key, V value) {
             this.key = key;
             this.value = value;
+            this.next = null;
         }
 
         public K getKey() {
@@ -129,5 +116,14 @@ public class PersonsHashMap<K> extends AbstractMap<K, PersonsArrayList> {
         public void setValue(V value) {
             this.value = value;
         }
+
+        public Entry<K, V> getNext() {
+            return next;
+        }
+
+        public void setNext(Entry<K, V> next) {
+            this.next = next;
+        }
     }
 }
+

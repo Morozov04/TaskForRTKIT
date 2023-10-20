@@ -1,7 +1,7 @@
 package org.example.dataGroups;
 
-import org.example.myCollections.PersonsArrayList;
 import org.example.myCollections.PersonsHashMap;
+import org.example.myCollections.PersonsArrayList;
 import org.example.person.Person;
 
 public class ClassroomDataGroups {
