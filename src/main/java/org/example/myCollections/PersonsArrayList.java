@@ -2,28 +2,39 @@ package org.example.myCollections;
 
 import org.example.person.Person;
 
-public class PersonsArrayList {
+import java.util.AbstractList;
+
+public class PersonsArrayList extends AbstractList<Person> {
+
     private final int DEFAULT_CAPACITY = 1000;
-    private int pointer = 0;
-    private Object[] array = new Object[DEFAULT_CAPACITY];
+    private Person[] elements = new Person[DEFAULT_CAPACITY];
+    private int size = 0;
 
-    public void add(Person item) {
-        if(pointer == array.length-1)
-            recreation(array.length*2);
-        array[pointer++] = item;
-    }
-
+    @Override
     public Person get(int index) {
-        return (Person) array[index];
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return elements[index];
     }
 
+    @Override
     public int size() {
-        return pointer;
+        return size;
     }
 
-    private void recreation(int newLength) {
-        Object[] newArray = new Object[newLength];
-        System.arraycopy(array, 0, newArray, 0, pointer);
-        array = newArray;
+    @Override
+    public boolean add(Person person) {
+        if (size == elements.length-1) {
+            resize();
+        }
+        elements[size++] = person;
+        return true;
+    }
+
+    private void resize() {
+        Person[] newElements = new Person[elements.length * 2];
+        System.arraycopy(elements, 0, newElements, 0, size);
+        elements = newElements;
     }
 }

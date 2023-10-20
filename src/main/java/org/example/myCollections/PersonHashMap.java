@@ -5,7 +5,6 @@ import java.util.List;
 
 public class PersonHashMap<K, V> {
     private static final int DEFAULT_CAPACITY = 100;
-
     private List<Entry<K, V>>[] lists;
     private int size;
 
