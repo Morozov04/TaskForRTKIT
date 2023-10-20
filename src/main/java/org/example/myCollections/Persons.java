@@ -1,18 +1,20 @@
 package org.example.myCollections;
 
-public class Persons<T> {
+import org.example.person.Person;
+
+public class Persons {
     private final int SIZE = 16;
     private int pointer = 0;
     private Object[] array = new Object[SIZE];
 
-    public void add(T item) {
+    public void add(Person item) {
         if(pointer == array.length-1)
             recreation(array.length*2);
         array[pointer++] = item;
     }
 
-    public T get(int index) {
-        return (T) array[index];
+    public Person get(int index) {
+        return (Person) array[index];
     }
 
     public void remove(int index) {

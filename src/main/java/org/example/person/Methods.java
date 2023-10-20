@@ -3,7 +3,6 @@ package org.example.person;
 import org.example.dataGroups.ClassroomDataGroups;
 import org.example.dataGroups.PersonAgeDataGroups;
 import org.example.dataGroups.PersonSurnameDataGroups;
-import org.example.myCollections.Persons;
 
 public class Methods {
     public static void calculateAverageGrade(ClassroomDataGroups classroomDataGroups, int groupMin, int groupMax){
@@ -35,9 +34,9 @@ public class Methods {
     }
 
     public static void findExcellentStudents(PersonAgeDataGroups personAgeDataGroups, int ageMin, int ageMax, int grade){
-        int ageMinStr = ageMin-- , ageMaxStr = ageMax++;
-        System.out.println("\n" + "Ученики с оценками " + grade + " старше " + ageMinStr + " младше " + ageMaxStr + " лет.");
-        for (int i = ageMin; i <= ageMax; i++){
+        int ageMinStr = ageMin+1 , ageMaxStr = ageMax-1;
+        System.out.println("\n" + "Ученики с оценками " + grade + " старше " + ageMin + " младше " + ageMax + " лет.");
+        for (int i = ageMinStr; i <= ageMaxStr; i++){
             for (int j = 0; j < personAgeDataGroups.getPersons(i).size(); j++){
                 if (personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getPHYSICS_GRADE() == grade &&
                         personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getMATHEMATICS_GRADE() == grade &&
@@ -53,10 +52,9 @@ public class Methods {
 
     public static void searchPersonBySurname(PersonSurnameDataGroups personSurnameDataGroups, String surname){
         System.out.println("\n" + "Ученики с фамилией " + surname + ".");
-        Persons<Person> persons = personSurnameDataGroups.getPersons(surname.charAt(0));
-        for (int i = 0; i < persons.size(); i++){
-            if (persons.get(i).getFAMILY().equals(surname)){
-                System.out.println(persons.get(i));
+        for (int i = 0; i < personSurnameDataGroups.getPersons(surname.charAt(0)).size(); i++){
+            if (personSurnameDataGroups.getPersons(surname.charAt(0)).get(i).getFAMILY().equals(surname)){
+                System.out.println(personSurnameDataGroups.getPersons(surname.charAt(0)).get(i));
             }
         }
     }

@@ -24,7 +24,7 @@ public class Main {
         //System.out.println(personSurnameDataGroups.getPersons('П').size());
 
         Methods.calculateAverageGrade(classroomDataGroups, 10, 11);
-        Methods.findExcellentStudents(personAgeDataGroups, 15, 18, 5);
+        Methods.findExcellentStudents(personAgeDataGroups, 14, 18, 5);
 
         System.out.print("\nВведите фамилию ученика: ");
 
