@@ -1,23 +1,20 @@
 package org.example.dataGroups;
 
-import org.example.myCollections.Persons;
+import org.example.myCollections.PersonHashMap;
+import org.example.myCollections.PersonsArrayList;
 import org.example.person.Person;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class PersonAgeDataGroups {
-
-    private final Map<Integer, Persons> DATA = new HashMap<>();
+    private final PersonHashMap<Integer, PersonsArrayList> DATA = new PersonHashMap<>();
 
     public void addPerson(Person person){
         if (!DATA.containsKey(person.getAGE())) {
-            DATA.put(person.getAGE(), new Persons());
+            DATA.put(person.getAGE(), new PersonsArrayList());
         }
         DATA.get(person.getAGE()).add(person);
     }
 
-    public Persons getPersons(int age) {
-        return DATA.getOrDefault(age, new Persons());
+    public PersonsArrayList getPersons(int age) {
+        return DATA.getOrDefault(age, new PersonsArrayList());
     }
 }

@@ -2,10 +2,10 @@ package org.example.myCollections;
 
 import org.example.person.Person;
 
-public class Persons {
-    private final int SIZE = 16;
+public class PersonsArrayList {
+    private final int DEFAULT_CAPACITY = 1000;
     private int pointer = 0;
-    private Object[] array = new Object[SIZE];
+    private Object[] array = new Object[DEFAULT_CAPACITY];
 
     public void add(Person item) {
         if(pointer == array.length-1)
@@ -15,15 +15,6 @@ public class Persons {
 
     public Person get(int index) {
         return (Person) array[index];
-    }
-
-    public void remove(int index) {
-        for (int i = index; i<pointer; i++)
-            array[i] = array[i+1];
-        array[pointer] = null;
-        pointer--;
-        if (array.length > SIZE && pointer < array.length / 4)
-            recreation(array.length/2);
     }
 
     public int size() {

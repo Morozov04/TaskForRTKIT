@@ -19,12 +19,8 @@ public class Main {
 
         DataLoad.loadStudentsData(classroomDataGroups, personAgeDataGroups, personSurnameDataGroups);
 
-        //System.out.println(classroomDataGroups.getPersons(2).size());
-        //System.out.println(personAgeDataGroups.getPersons(8).size());
-        //System.out.println(personSurnameDataGroups.getPersons('П').size());
-
         Methods.calculateAverageGrade(classroomDataGroups, 10, 11);
-        Methods.findExcellentStudents(personAgeDataGroups, 14, 18, 5);
+        Methods.searchPersonByAssessment(personAgeDataGroups, 14, 18, 5);
 
         System.out.print("\nВведите фамилию ученика: ");
 

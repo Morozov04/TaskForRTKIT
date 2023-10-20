@@ -33,7 +33,7 @@ public class Methods {
                 +(geometryGrade/count)+ (informaticsGrade/count))/6);
     }
 
-    public static void findExcellentStudents(PersonAgeDataGroups personAgeDataGroups, int ageMin, int ageMax, int grade){
+    public static void searchPersonByAssessment(PersonAgeDataGroups personAgeDataGroups, int ageMin, int ageMax, int grade){
         int ageMinStr = ageMin+1 , ageMaxStr = ageMax-1;
         System.out.println("\n" + "Ученики с оценками " + grade + " старше " + ageMin + " младше " + ageMax + " лет.");
         for (int i = ageMinStr; i <= ageMaxStr; i++){
