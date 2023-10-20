@@ -1,27 +1,27 @@
 package org.example.myCollections;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class PersonHashMap<K, V> {
+public class PersonsHashMap<K> extends AbstractMap<K, PersonsArrayList> {
     private static final int DEFAULT_CAPACITY = 100;
-    private List<Entry<K, V>>[] lists;
+    private List<Entry<K, PersonsArrayList>>[] lists;
     private int size;
 
-    public PersonHashMap() {
+    public PersonsHashMap() {
         this(DEFAULT_CAPACITY);
     }
 
-    public PersonHashMap(int capacity) {
+    public PersonsHashMap(int capacity) {
         lists = new ArrayList[capacity];
         size = 0;
     }
 
-    public boolean containsKey(K key) {
-        int index = getIndex(key);
-        List<Entry<K, V>> list = lists[index];
+    @Override
+    public boolean containsKey(Object key) {
+        int index = getIndex((K) key);
+        List<Entry<K, PersonsArrayList>> list = lists[index];
         if (list != null) {
-            for (Entry<K, V> entry : list) {
+            for (Entry<K, PersonsArrayList> entry : list) {
                 if (entry.getKey().equals(key)) {
                     return true;
                 }
@@ -30,17 +30,18 @@ public class PersonHashMap<K, V> {
         return false;
     }
 
-    public void put(K key, V value) {
+    @Override
+    public PersonsArrayList put(K key, PersonsArrayList value) {
         int index = getIndex(key);
-        List<Entry<K, V>> list = lists[index];
+        List<Entry<K, PersonsArrayList>> list = lists[index];
         if (list == null) {
             list = new ArrayList<>();
             lists[index] = list;
         } else {
-            for (Entry<K, V> entry : list) {
+            for (Entry<K, PersonsArrayList> entry : list) {
                 if (entry.getKey().equals(key)) {
                     entry.setValue(value);
-                    return;
+                    return value;
                 }
             }
         }
@@ -50,13 +51,27 @@ public class PersonHashMap<K, V> {
         if ((float) size / lists.length > 0.75f) {
             resize();
         }
+        return value;
     }
 
-    public V get(K key) {
-        int index = getIndex(key);
-        List<Entry<K, V>> list = lists[index];
+    @Override
+    public Set<Map.Entry<K, PersonsArrayList>> entrySet() {
+        Set<Map.Entry<K,PersonsArrayList>> es = new HashSet<>();
+        for (Map.Entry<K, PersonsArrayList> entry : es) {
+            while (entry != null) {
+                es.add(entry);
+                entry = (Map.Entry<K, PersonsArrayList>) entry.getKey();
+            }
+        }
+        return es;
+    }
+
+    @Override
+    public PersonsArrayList get(Object key) {
+        int index = getIndex((K) key);
+        List<Entry<K, PersonsArrayList>> list = lists[index];
         if (list != null) {
-            for (Entry<K, V> entry : list) {
+            for (Entry<K, PersonsArrayList> entry : list) {
                 if (entry.getKey().equals(key)) {
                     return entry.getValue();
                 }
@@ -65,8 +80,9 @@ public class PersonHashMap<K, V> {
         return null;
     }
 
-    public V getOrDefault(K key, V defaultValue) {
-        V value = get(key);
+    @Override
+    public PersonsArrayList getOrDefault(Object key, PersonsArrayList defaultValue) {
+        PersonsArrayList value = get(key);
         return value != null ? value : defaultValue;
     }
 
@@ -76,12 +92,12 @@ public class PersonHashMap<K, V> {
 
     private void resize() {
         int newCapacity = lists.length * 2;
-        List<Entry<K, V>>[] arrayLists = new ArrayList[newCapacity];
-        for (List<Entry<K, V>> bucket : lists) {
+        List<Entry<K, PersonsArrayList>>[] arrayLists = new ArrayList[newCapacity];
+        for (List<Entry<K, PersonsArrayList>> bucket : lists) {
             if (bucket != null) {
-                for (Entry<K, V> entry : bucket) {
+                for (Entry<K, PersonsArrayList> entry : bucket) {
                     int newIndex = Math.abs(entry.getKey().hashCode()) % newCapacity;
-                    List<Entry<K, V>> arrayList = arrayLists[newIndex];
+                    List<Entry<K, PersonsArrayList>> arrayList = arrayLists[newIndex];
                     if (arrayList == null) {
                         arrayList = new ArrayList<>();
                         arrayLists[newIndex] = arrayList;

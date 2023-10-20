@@ -1,11 +1,13 @@
 package org.example.dataGroups;
 
-import org.example.myCollections.PersonHashMap;
 import org.example.myCollections.PersonsArrayList;
+import org.example.myCollections.PersonsHashMap;
 import org.example.person.Person;
 
 public class ClassroomDataGroups {
-    private final PersonHashMap<Integer, PersonsArrayList> DATA = new PersonHashMap<>();
+
+    //private final Map<Integer, List<Person>> map = new HashMap<>();
+    private final PersonsHashMap<Integer> DATA = new PersonsHashMap<>();
 
     public void addPerson(Person person) {
         if (!DATA.containsKey(person.getGROUP())) {
