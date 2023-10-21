@@ -25,7 +25,7 @@ public class PersonsArrayList extends AbstractList<Person> {
 
     @Override
     public boolean add(Person person) {
-        if (size == elements.length-1) {
+        if (size == elements.length - 1) {
             resize();
         }
         elements[size++] = person;

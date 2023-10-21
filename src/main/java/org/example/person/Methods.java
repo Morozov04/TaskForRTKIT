@@ -5,8 +5,8 @@ import org.example.dataGroups.PersonAgeDataGroups;
 import org.example.dataGroups.PersonSurnameDataGroups;
 
 public class Methods {
-    public static void calculateAverageGrade(ClassroomDataGroups classroomDataGroups, int groupMin, int groupMax){
-        System.out.println("Вычисление средней оценки в классах: " + groupMin + " ... " + groupMax + ".");
+    public static void calculateAverageGrade(ClassroomDataGroups classroomDataGroups, int group){
+        System.out.println("Вычисление средней оценки в " + group +  " классе.");
 
         double physicsGrade = 0.0;
         double mathematicsGrade = 0.0;
@@ -15,20 +15,15 @@ public class Methods {
         double geometryGrade = 0.0;
         double informaticsGrade = 0.0;
 
-        int count = 0;
-
-        for (int i = groupMin; i <= groupMax; i++){
-            for (int j = 0; j < classroomDataGroups.getPersons(i).size(); j++){
-                physicsGrade += classroomDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getPHYSICS_GRADE();
-                mathematicsGrade += classroomDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getMATHEMATICS_GRADE();
-                rusGrade += classroomDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getRUS_GRADE();
-                literatureGrade += classroomDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getLITERATURE_GRADE();
-                geometryGrade += classroomDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getGEOMETRY_GRADE();
-                informaticsGrade += classroomDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getINFORMATICS_GRADE();
-
-                count++;
+        int count = classroomDataGroups.getPersons(group).size();
+        for (int j = 0; j < count; j++){
+            physicsGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getPHYSICS_GRADE();
+            mathematicsGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getMATHEMATICS_GRADE();
+            rusGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getRUS_GRADE();
+            literatureGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getLITERATURE_GRADE();
+            geometryGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getGEOMETRY_GRADE();
+            informaticsGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getINFORMATICS_GRADE();
             }
-        }
         System.out.println(((physicsGrade/count) + (mathematicsGrade/count) + (rusGrade/count)+ (literatureGrade/count)
                 +(geometryGrade/count)+ (informaticsGrade/count))/6);
     }

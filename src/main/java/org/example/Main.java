@@ -19,7 +19,9 @@ public class Main {
 
         DataLoad.loadStudentsData(classroomDataGroups, personAgeDataGroups, personSurnameDataGroups);
 
-        Methods.calculateAverageGrade(classroomDataGroups, 10, 11);
+        Methods.calculateAverageGrade(classroomDataGroups, 10);
+        Methods.calculateAverageGrade(classroomDataGroups, 11);
+
         Methods.searchPersonByAssessment(personAgeDataGroups, 14, 18, 5);
 
         System.out.print("\nВведите фамилию ученика: ");

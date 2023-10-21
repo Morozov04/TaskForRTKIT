@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class PersonsHashMap<K> extends AbstractMap {
-    private static final int DEFAULT_CAPACITY = 10000;
-    private Entry<K, PersonsArrayList>[] buckets;
+    private static final int DEFAULT_CAPACITY = 100;
+    private Node<K, PersonsArrayList>[] buckets;
     private int size;
 
     public PersonsHashMap() {
@@ -14,13 +14,13 @@ public class PersonsHashMap<K> extends AbstractMap {
     }
 
     public PersonsHashMap(int capacity) {
-        buckets = new Entry[capacity];
+        buckets = new Node[capacity];
         size = 0;
     }
 
     public void put(K key, PersonsArrayList value) {
         int index = getIndex(key);
-        Entry<K, PersonsArrayList> entry = buckets[index];
+        Node<K, PersonsArrayList> entry = buckets[index];
 
         while (entry != null) {
             if (entry.getKey().equals(key)) {
@@ -30,7 +30,7 @@ public class PersonsHashMap<K> extends AbstractMap {
             entry = entry.getNext();
         }
 
-        Entry<K, PersonsArrayList> newEntry = new Entry<>(key, value);
+        Node<K, PersonsArrayList> newEntry = new Node<>(key, value);
         newEntry.setNext(buckets[index]);
         buckets[index] = newEntry;
         size++;
@@ -39,7 +39,7 @@ public class PersonsHashMap<K> extends AbstractMap {
     @Override
     public PersonsArrayList get(Object key) {
         int index = getIndex((K) key);
-        Entry<K, PersonsArrayList> entry = buckets[index];
+        Node<K, PersonsArrayList> entry = buckets[index];
 
         while (entry != null) {
             if (entry.getKey().equals(key)) {
@@ -54,7 +54,7 @@ public class PersonsHashMap<K> extends AbstractMap {
     @Override
     public boolean containsKey(Object key) {
         int index = getIndex((K) key);
-        Entry<K, PersonsArrayList> entry = buckets[index];
+        Node<K, PersonsArrayList> entry = buckets[index];
 
         while (entry != null) {
             if (entry.getKey().equals(key)) {
@@ -78,7 +78,7 @@ public class PersonsHashMap<K> extends AbstractMap {
 
     public PersonsArrayList getOrDefault(K key, PersonsArrayList defaultValue) {
         int index = getIndex(key);
-        Entry<K, PersonsArrayList> entry = buckets[index];
+        Node<K, PersonsArrayList> entry = buckets[index];
 
         while (entry != null) {
             if (entry.getKey().equals(key)) {
@@ -94,12 +94,12 @@ public class PersonsHashMap<K> extends AbstractMap {
         return key.hashCode() % buckets.length;
     }
 
-    private static class Entry<K, V> {
+    private static class Node<K, V> {
         private final K key;
         private V value;
-        private Entry<K, V> next;
+        private Node<K, V> next;
 
-        public Entry(K key, V value) {
+        public Node(K key, V value) {
             this.key = key;
             this.value = value;
             this.next = null;
@@ -117,11 +117,11 @@ public class PersonsHashMap<K> extends AbstractMap {
             this.value = value;
         }
 
-        public Entry<K, V> getNext() {
+        public Node<K, V> getNext() {
             return next;
         }
 
-        public void setNext(Entry<K, V> next) {
+        public void setNext(Node<K, V> next) {
             this.next = next;
         }
     }
