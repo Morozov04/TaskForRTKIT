@@ -9,7 +9,7 @@ public class PersonAgeDataGroups {
     //private final Map<Integer, PersonsArrayList> map = new HashMap<>();
     private final PersonsHashMap<Integer> DATA = new PersonsHashMap<>();
 
-    public void addPerson(Person person){
+    public void addPerson(Person person) {
         if (!DATA.containsKey(person.getAGE())) {
             DATA.put(person.getAGE(), new PersonsArrayList());
         }

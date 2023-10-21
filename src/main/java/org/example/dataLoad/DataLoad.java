@@ -21,16 +21,16 @@ public class DataLoad {
                 String[] values = line.split(",");
                 if (count != 0) {
                     Person person = new Person(values[0],
-                                                values[1],
-                                                Integer.parseInt(values[2]),
-                                                Integer.parseInt(values[3]),
-                                                new SubjectGrades(
-                                                        Integer.parseInt(values[4]),
-                                                        Integer.parseInt(values[5]),
-                                                        Integer.parseInt(values[6]),
-                                                        Integer.parseInt(values[7]),
-                                                        Integer.parseInt(values[8]),
-                                                        Integer.parseInt(values[9])));
+                            values[1],
+                            Integer.parseInt(values[2]),
+                            Integer.parseInt(values[3]),
+                            new SubjectGrades(
+                                    Integer.parseInt(values[4]),
+                                    Integer.parseInt(values[5]),
+                                    Integer.parseInt(values[6]),
+                                    Integer.parseInt(values[7]),
+                                    Integer.parseInt(values[8]),
+                                    Integer.parseInt(values[9])));
                     classroomDataGroups.addPerson(person);
                     personAgeDataGroups.addPerson(person);
                     personNameDataGroups.addPerson(person);
