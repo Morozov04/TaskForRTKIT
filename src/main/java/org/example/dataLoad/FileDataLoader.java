@@ -1,19 +1,27 @@
 package org.example.dataLoad;
 
-import org.example.dataGroups.ClassroomDataGroups;
-import org.example.dataGroups.PersonAgeDataGroups;
-import org.example.dataGroups.PersonSurnameDataGroups;
 import org.example.person.Person;
 import org.example.person.SubjectGrades;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class DataLoad {
-    public static void loadStudentsData(ClassroomDataGroups classroomDataGroups, PersonAgeDataGroups personAgeDataGroups, PersonSurnameDataGroups personNameDataGroups) {
+public class FileDataLoader implements IDataLoader {
+
+    private List<Person> personList = new ArrayList<>();
+
+    @Override
+    public List<Person> get() {
+        return personList;
+    }
+
+    @Override
+    public void loadData(String pathname) {
         try {
-            File file = new File("src/main/resources/students.csv");
+            File file = new File(pathname);
             Scanner scanner = new Scanner(file);
             int count = 0;
             while (scanner.hasNextLine()) {
@@ -31,9 +39,7 @@ public class DataLoad {
                                     Integer.parseInt(values[7]),
                                     Integer.parseInt(values[8]),
                                     Integer.parseInt(values[9])));
-                    classroomDataGroups.addPerson(person);
-                    personAgeDataGroups.addPerson(person);
-                    personNameDataGroups.addPerson(person);
+                    personList.add(person);
                 }
                 count++;
             }
