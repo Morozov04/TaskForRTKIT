@@ -62,7 +62,6 @@ public class PersonsHashMap<K> extends AbstractMap {
             }
             entry = entry.getNext();
         }
-
         return false;
     }
 
@@ -74,20 +73,6 @@ public class PersonsHashMap<K> extends AbstractMap {
     @Override
     public Set<Map.Entry> entrySet() {
         return null;
-    }
-
-    public PersonsArrayList getOrDefault(K key, PersonsArrayList defaultValue) {
-        int index = getIndex(key);
-        Node<K, PersonsArrayList> entry = buckets[index];
-
-        while (entry != null) {
-            if (entry.getKey().equals(key)) {
-                return entry.getValue();
-            }
-            entry = entry.getNext();
-        }
-
-        return defaultValue;
     }
 
     private int getIndex(K key) {

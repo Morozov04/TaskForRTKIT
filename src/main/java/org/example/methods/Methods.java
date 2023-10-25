@@ -59,9 +59,9 @@ public class Methods {
         System.out.println("\n" + "Ученики с фамилией " + surname + ".");
 
         try {
-            for (int i = 0; i < personSurnameDataGroups.getPersons(surname).size(); i++) {
-                if (personSurnameDataGroups.getPersons(surname).get(i).getFAMILY().equals(surname)) {
-                    System.out.println(personSurnameDataGroups.getPersons(surname).get(i));
+            for (int i = 0; i < personSurnameDataGroups.getPersons(String.valueOf(surname.charAt(0))).size(); i++) {
+                if (personSurnameDataGroups.getPersons(String.valueOf(surname.charAt(0))).get(i).getFAMILY().equals(surname)) {
+                    System.out.println(personSurnameDataGroups.getPersons(String.valueOf(surname.charAt(0))).get(i));
                 }
             }
         } catch (NullPointerException nullPointerException) {

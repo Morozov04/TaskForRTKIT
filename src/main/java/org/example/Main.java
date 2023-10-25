@@ -19,7 +19,7 @@ public class Main {
 
         IGroupCriterion groupCriterion = person -> String.valueOf(person.getGROUP());
         IGroupCriterion ageCriterion = person -> String.valueOf(person.getAGE());
-        IGroupCriterion familyCriterion = Person::getFAMILY;
+        IGroupCriterion familyCriterion = person -> String.valueOf(person.getFAMILY().charAt(0));
 
         DataGroup groupGroup = new DataGroup(groupCriterion);
         DataGroup ageGroup = new DataGroup(ageCriterion);
