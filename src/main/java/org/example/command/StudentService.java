@@ -11,7 +11,7 @@ public class StudentService {
         this.LOADER = dataLoader;
     }
 
-    public static void toDataGroup(DataGroup dataGroup, StudentService studentService) {
+    public static <K> void toDataGroup(DataGroup<K> dataGroup, StudentService studentService) {
         for (Person person : studentService.LOADER.get()) {
             dataGroup.addPerson(person);
         }

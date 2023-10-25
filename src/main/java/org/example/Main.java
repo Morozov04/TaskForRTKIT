@@ -20,8 +20,7 @@ public class Main {
 
         try {
             commandBuilder.createCommand(args[0]).execute();
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage() + " | Нет аргументов.");
         }
     }

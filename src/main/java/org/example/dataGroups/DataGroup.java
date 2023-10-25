@@ -4,26 +4,26 @@ import org.example.myCollections.PersonsArrayList;
 import org.example.myCollections.PersonsHashMap;
 import org.example.person.Person;
 
-public class DataGroup {
-    private final IGroupCriterion CRITERION;
+public class DataGroup<K> {
+    private final IGroupCriterion<K> CRITERION;
 
-    //private final Map<String, List<Person>> GROUPS;
-    private final PersonsHashMap<String> GROUPS;
+    //private final Map<K, List<Person>> GROUPS;
+    private final PersonsHashMap<K> GROUPS;
 
-    public DataGroup(IGroupCriterion criterion) {
+    public DataGroup(IGroupCriterion<K> criterion) {
         this.CRITERION = criterion;
         this.GROUPS = new PersonsHashMap<>();
     }
 
     public void addPerson(Person person) {
-        String groupKey = CRITERION.getGroupKey(person);
+        K groupKey = CRITERION.getGroupKey(person);
         if (!GROUPS.containsKey(groupKey)) {
             GROUPS.put(groupKey, new PersonsArrayList());
         }
         GROUPS.get(groupKey).add(person);
     }
 
-    public PersonsArrayList getPersons(String groupKey) {
+    public PersonsArrayList getPersons(K groupKey) {
         return GROUPS.get(groupKey);
     }
 }
