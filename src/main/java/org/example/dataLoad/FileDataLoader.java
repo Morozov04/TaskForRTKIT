@@ -11,11 +11,11 @@ import java.util.Scanner;
 
 public class FileDataLoader implements IDataLoader {
 
-    private List<Person> personList = new ArrayList<>();
+    private final List<Person> PERSON_LIST = new ArrayList<>();
 
     @Override
     public List<Person> get() {
-        return personList;
+        return PERSON_LIST;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class FileDataLoader implements IDataLoader {
                                     Integer.parseInt(values[7]),
                                     Integer.parseInt(values[8]),
                                     Integer.parseInt(values[9])));
-                    personList.add(person);
+                    PERSON_LIST.add(person);
                 }
                 count++;
             }
