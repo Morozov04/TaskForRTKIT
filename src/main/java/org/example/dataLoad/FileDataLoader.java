@@ -45,7 +45,7 @@ public class FileDataLoader implements IDataLoader {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + " | Нет файла.");
         }
     }
 }
