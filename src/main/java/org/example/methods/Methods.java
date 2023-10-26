@@ -65,5 +65,8 @@ public class Methods {
         } catch (NullPointerException nullPointerException) {
             System.out.println("Учеников с такой фамилией нет.");
         }
+        catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException){
+            System.out.println("Значение 'фамилия ученика' пустое.");
+        }
     }
 }
