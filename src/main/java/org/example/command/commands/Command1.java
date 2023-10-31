@@ -7,16 +7,16 @@ import org.example.methods.Methods;
 import org.example.person.Person;
 
 public class Command1 implements ICommand {
-    private final StudentService STUDENT_SERVICE;
+    private final StudentService studentService;
 
     public Command1(StudentService studentService) {
-        this.STUDENT_SERVICE = studentService;
+        this.studentService = studentService;
     }
 
     @Override
     public void execute() {
-        DataGroup<Integer> groupGroup = new DataGroup<>(Person::getGROUP);
-        StudentService.toDataGroup(groupGroup, STUDENT_SERVICE);
+        DataGroup<Integer> groupGroup = new DataGroup<>(Person::getGroup);
+        StudentService.toDataGroup(groupGroup, studentService);
         Methods.calculateAverageGrade(groupGroup, 10);
         Methods.calculateAverageGrade(groupGroup, 11);
     }

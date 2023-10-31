@@ -1,47 +1,67 @@
 package org.example.person;
 
 public class Person {
-    private final String FAMILY;
-    private final String NAME;
-    private final int AGE;
-    private final int GROUP;
-    private final SubjectGrades SUBJECT_GRADES;
+    private String family;
+    private String name;
+    private int age;
+    private int group;
+    private SubjectGrades subjectGrades;
 
     public Person(String family, String name, int age, int group, SubjectGrades subjectGrades) {
-        this.FAMILY = family;
-        this.NAME = name;
-        this.AGE = age;
-        this.GROUP = group;
-        this.SUBJECT_GRADES = subjectGrades;
+        this.family = family;
+        this.name = name;
+        this.age = age;
+        this.group = group;
+        this.subjectGrades = subjectGrades;
     }
 
-    public String getFAMILY() {
-        return FAMILY;
+    public String getFamily() {
+        return family;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getName() {
+        return name;
     }
 
-    public int getAGE() {
-        return AGE;
+    public int getAge() {
+        return age;
     }
 
-    public int getGROUP() {
-        return GROUP;
+    public int getGroup() {
+        return group;
     }
 
-    public SubjectGrades getSUBJECT_GRADES() {
-        return SUBJECT_GRADES;
+    public SubjectGrades getSubjectGrades() {
+        return subjectGrades;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
+    }
+
+    public void setSubjectGrades(SubjectGrades subjectGrades) {
+        this.subjectGrades = subjectGrades;
     }
 
     @Override
     public String toString() {
         return "Person{" +
-                "family='" + FAMILY + '\'' +
-                ", name='" + NAME + '\'' +
-                ", age=" + AGE +
-                ", group=" + GROUP +
+                "family='" + family + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", group=" + group +
                 '}';
     }
 }

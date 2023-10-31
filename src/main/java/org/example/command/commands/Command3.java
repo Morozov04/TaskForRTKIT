@@ -8,16 +8,16 @@ import org.example.methods.Methods;
 import java.util.Scanner;
 
 public class Command3 implements ICommand {
-    private final StudentService STUDENT_SERVICE;
+    private final StudentService studentService;
 
     public Command3(StudentService studentService) {
-        this.STUDENT_SERVICE = studentService;
+        this.studentService = studentService;
     }
 
     @Override
     public void execute() {
-        DataGroup<Character> familyGroup = new DataGroup<>(person -> person.getFAMILY().charAt(0));
-        StudentService.toDataGroup(familyGroup, STUDENT_SERVICE);
+        DataGroup<Character> familyGroup = new DataGroup<>(person -> person.getFamily().charAt(0));
+        StudentService.toDataGroup(familyGroup, studentService);
         Scanner in = new Scanner(System.in);
 
         System.out.print("\nВведите фамилию ученика: ");

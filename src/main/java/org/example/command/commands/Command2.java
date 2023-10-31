@@ -7,16 +7,16 @@ import org.example.methods.Methods;
 import org.example.person.Person;
 
 public class Command2 implements ICommand {
-    private final StudentService STUDENT_SERVICE;
+    private final StudentService studentService;
 
     public Command2(StudentService studentService) {
-        this.STUDENT_SERVICE = studentService;
+        this.studentService = studentService;
     }
 
     @Override
     public void execute() {
-        DataGroup<Integer> ageGroup = new DataGroup<>(Person::getAGE);
-        StudentService.toDataGroup(ageGroup, STUDENT_SERVICE);
+        DataGroup<Integer> ageGroup = new DataGroup<>(Person::getAge);
+        StudentService.toDataGroup(ageGroup, studentService);
         Methods.searchPersonByAssessment(ageGroup, 14, 18, 5);
     }
 }

@@ -13,12 +13,12 @@ public class Methods {
             int count = classroomDataGroups.getPersons(group).size();
 
             for (int j = 0; j < count; j++) {
-                physicsGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getPHYSICS_GRADE();
-                mathematicsGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getMATHEMATICS_GRADE();
-                rusGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getRUS_GRADE();
-                literatureGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getLITERATURE_GRADE();
-                geometryGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getGEOMETRY_GRADE();
-                informaticsGrade += classroomDataGroups.getPersons(group).get(j).getSUBJECT_GRADES().getINFORMATICS_GRADE();
+                physicsGrade += classroomDataGroups.getPersons(group).get(j).getSubjectGrades().getPhysicsGrade();
+                mathematicsGrade += classroomDataGroups.getPersons(group).get(j).getSubjectGrades().getMathematicsGrade();
+                rusGrade += classroomDataGroups.getPersons(group).get(j).getSubjectGrades().getRusGrade();
+                literatureGrade += classroomDataGroups.getPersons(group).get(j).getSubjectGrades().getLiteratureGrade();
+                geometryGrade += classroomDataGroups.getPersons(group).get(j).getSubjectGrades().getGeometryGrade();
+                informaticsGrade += classroomDataGroups.getPersons(group).get(j).getSubjectGrades().getInformaticsGrade();
             }
             System.out.println(((physicsGrade / count) + (mathematicsGrade / count) + (rusGrade / count) + (literatureGrade / count)
                     + (geometryGrade / count) + (informaticsGrade / count)) / 6);
@@ -37,12 +37,12 @@ public class Methods {
         try {
             for (int i = ageMinStr; i <= ageMaxStr; i++) {
                 for (int j = 0; j < personAgeDataGroups.getPersons(i).size(); j++) {
-                    if (personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getPHYSICS_GRADE() == grade &&
-                            personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getMATHEMATICS_GRADE() == grade &&
-                            personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getRUS_GRADE() == grade &&
-                            personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getLITERATURE_GRADE() == grade &&
-                            personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getGEOMETRY_GRADE() == grade &&
-                            personAgeDataGroups.getPersons(i).get(j).getSUBJECT_GRADES().getINFORMATICS_GRADE() == grade) {
+                    if (personAgeDataGroups.getPersons(i).get(j).getSubjectGrades().getPhysicsGrade() == grade &&
+                            personAgeDataGroups.getPersons(i).get(j).getSubjectGrades().getMathematicsGrade() == grade &&
+                            personAgeDataGroups.getPersons(i).get(j).getSubjectGrades().getRusGrade() == grade &&
+                            personAgeDataGroups.getPersons(i).get(j).getSubjectGrades().getLiteratureGrade() == grade &&
+                            personAgeDataGroups.getPersons(i).get(j).getSubjectGrades().getGeometryGrade() == grade &&
+                            personAgeDataGroups.getPersons(i).get(j).getSubjectGrades().getInformaticsGrade() == grade) {
                         System.out.println(personAgeDataGroups.getPersons(i).get(j).toString());
                     }
                 }
@@ -58,7 +58,7 @@ public class Methods {
 
         try {
             for (int i = 0; i < personSurnameDataGroups.getPersons(surname.charAt(0)).size(); i++) {
-                if (personSurnameDataGroups.getPersons(surname.charAt(0)).get(i).getFAMILY().equals(surname)) {
+                if (personSurnameDataGroups.getPersons(surname.charAt(0)).get(i).getFamily().equals(surname)) {
                     System.out.println(personSurnameDataGroups.getPersons(surname.charAt(0)).get(i));
                 }
             }

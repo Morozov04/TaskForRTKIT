@@ -1,29 +1,32 @@
 package org.example.dataGroups;
 
-import org.example.myCollections.PersonsArrayList;
-import org.example.myCollections.PersonsHashMap;
 import org.example.person.Person;
 
-public class DataGroup<K> {
-    private final IGroupCriterion<K> CRITERION;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    //private final Map<K, List<Person>> GROUPS;
-    private final PersonsHashMap<K> GROUPS;
+public class DataGroup<K> {
+    private final IGroupCriterion<K> criterion;
+    private final Map<K, List<Person>> groups;
+
+    //private final PersonsHashMap<K> GROUPS;
 
     public DataGroup(IGroupCriterion<K> criterion) {
-        this.CRITERION = criterion;
-        this.GROUPS = new PersonsHashMap<>();
+        this.criterion = criterion;
+        this.groups = new HashMap<>();
     }
 
     public void addPerson(Person person) {
-        K groupKey = CRITERION.getGroupKey(person);
-        if (!GROUPS.containsKey(groupKey)) {
-            GROUPS.put(groupKey, new PersonsArrayList());
+        K groupKey = criterion.getGroupKey(person);
+        if (!groups.containsKey(groupKey)) {
+            groups.put(groupKey, new ArrayList<>());
         }
-        GROUPS.get(groupKey).add(person);
+        groups.get(groupKey).add(person);
     }
 
-    public PersonsArrayList getPersons(K groupKey) {
-        return GROUPS.get(groupKey);
+    public List<Person> getPersons(K groupKey) {
+        return groups.get(groupKey);
     }
 }

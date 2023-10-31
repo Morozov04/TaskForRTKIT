@@ -3,17 +3,20 @@ package org.example.command;
 import org.example.command.commands.*;
 
 public class CommandBuilder {
-    private final StudentService STUDENT_SERVICE;
+    private final StudentService studentService;
 
     public CommandBuilder(StudentService studentService) {
-        this.STUDENT_SERVICE = studentService;
+        this.studentService = studentService;
     }
 
     public ICommand createCommand(String commandName) {
         return switch (commandName) {
-            case "avgGrInClass" -> new Command1(STUDENT_SERVICE);
-            case "searchExStd" -> new Command2(STUDENT_SERVICE);
-            case "searchByLN" -> new Command3(STUDENT_SERVICE);
+            case "avgGrInClass" -> new Command1(studentService);
+            case "searchExStd" -> new Command2(studentService);
+            case "searchByLN" -> new Command3(studentService);
+            case "avgGrInClassDB" -> new Command4();
+            case "searchExStdDB" -> new Command5();
+            case "searchByLNDB" -> new Command6();
             default -> throw new IllegalArgumentException("Неизвестная команда: " + commandName);
         };
     }
