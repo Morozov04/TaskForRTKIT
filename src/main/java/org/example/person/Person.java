@@ -62,6 +62,7 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", group=" + group +
+                ", subjectGrades=" + subjectGrades +
                 '}';
     }
 }

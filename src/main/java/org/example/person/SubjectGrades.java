@@ -66,13 +66,13 @@ public class SubjectGrades {
 
     @Override
     public String toString() {
-        return "SubjectGrades{" +
-                "physicsGrade=" + physicsGrade +
-                ", mathematicsGrade=" + mathematicsGrade +
-                ", rusGrade=" + rusGrade +
-                ", literatureGrade=" + literatureGrade +
-                ", geometryGrade=" + geometryGrade +
-                ", informaticsGrade=" + informaticsGrade +
+        return "Subject{" +
+                "physics=" + physicsGrade +
+                ", mathematics=" + mathematicsGrade +
+                ", rus=" + rusGrade +
+                ", literature=" + literatureGrade +
+                ", geometry=" + geometryGrade +
+                ", informatics=" + informaticsGrade +
                 '}';
     }
 }
