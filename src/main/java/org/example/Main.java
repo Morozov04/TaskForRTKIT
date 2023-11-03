@@ -10,7 +10,7 @@ import org.example.dataLoad.*;
  * Task 2.
  * <p>avgGrInClass- Вычисление средней оценки в старших классах (10 и 11) - Command1.
  * <p>searchExStd - Поиск всех отличников, старше 14 лет - Command2.
- * <p>searchByLN - Поиск ученика по фамили (фамилия ученика задается через консоль) - Command3.
+ * <p>searchByLN - Поиск ученика по фамилии (фамилия ученика задается через консоль) - Command3.
  * <p>
  * <p>Task 3.
  * <p>avgGrInClassDB- Вычисление средней оценки в старших классах (10 и 11) [Из БД] - Command4.
@@ -19,6 +19,8 @@ import org.example.dataLoad.*;
  * <p>
  * <p>src/main/resources/config.properties - конфиг для подключения к БД.
  * <p>src/main/resources/student_create.sql - скрипт создания\инициализации таблиц в БД.
+ * <p>
+ * <p>Новый функционал (работа с БД) - классы: DBUntil, CRUDUtils, SQLMethods.
  */
 
 public class Main {

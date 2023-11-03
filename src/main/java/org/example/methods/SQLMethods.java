@@ -24,7 +24,7 @@ public class SQLMethods {
                     System.out.print(" | Средняя оценка = " + resultSet.getDouble("averageResult") + ".\n");
                 }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Значение введено некорректно.");
         }
     }
 
@@ -44,7 +44,7 @@ public class SQLMethods {
                 System.out.print(" | Класс = " + resultSet.getInt("classNumber") + ".\n");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Значение введено некорректно.");
         }
     }
 
@@ -63,7 +63,7 @@ public class SQLMethods {
                 System.out.print(" | Средняя оценка = " + resultSet.getDouble("averageResult") + ".\n");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Значение введено некорректно.");
         }
     }
 }
