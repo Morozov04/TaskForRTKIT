@@ -17,7 +17,7 @@ import org.example.dataLoad.*;
  * <p>searchExStdDB - Поиск всех отличников, старше 14 лет [Из БД] - Command5.
  * <p>searchByLNDB - Вычисление средней оценки ученика по указанной фамилии [Из БД] - Command6.
  * <p>
- * <p>src/main/resources/config.properties - конфиг для подключения к БД.
+ * <p>src/main/resources/configDB.properties - конфиг для подключения к БД.
  * <p>src/main/resources/student_create.sql - скрипт создания\инициализации таблиц в БД.
  * <p>
  * <p>Новый функционал (работа с БД) - классы: DBUntil, CRUDUtils, SQLMethods.
