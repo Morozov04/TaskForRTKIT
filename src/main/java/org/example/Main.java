@@ -26,7 +26,7 @@ import org.example.dataLoad.*;
 public class Main {
     public static void main(String[] args) {
 
-        IDataLoader fileDataLoader = new FileDataLoader();
+        /*IDataLoader fileDataLoader = new FileDataLoader();
         fileDataLoader.loadData("src/main/resources/students.csv");
 
         StudentService studentService = new StudentService(fileDataLoader);
@@ -40,6 +40,9 @@ public class Main {
             System.out.println(e.getMessage() + " | Нет аргументов.");
         }
 
-        DBUtils.closeConnection();
+        DBUtils.closeConnection();*/
+
+        System.out.println("Hello!");
+
     }
 }
