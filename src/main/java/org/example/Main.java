@@ -1,11 +1,5 @@
 package org.example;
 
-import org.example.command.CommandBuilder;
-import org.example.command.StudentService;
-import org.example.dataBase.DBUtils;
-import org.example.dataLoad.*;
-
-
 /**
  * Task 2.
  * <p>avgGrInClass- Вычисление средней оценки в старших классах (10 и 11) - Command1.
@@ -26,7 +20,9 @@ import org.example.dataLoad.*;
 public class Main {
     public static void main(String[] args) {
 
-        /*IDataLoader fileDataLoader = new FileDataLoader();
+        /*
+        //Task 3
+        IDataLoader fileDataLoader = new FileDataLoader();
         fileDataLoader.loadData("src/main/resources/students.csv");
 
         StudentService studentService = new StudentService(fileDataLoader);
@@ -41,8 +37,5 @@ public class Main {
         }
 
         DBUtils.closeConnection();*/
-
-        System.out.println("Hello!");
-
     }
 }

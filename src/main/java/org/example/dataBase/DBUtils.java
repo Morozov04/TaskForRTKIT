@@ -17,7 +17,7 @@ public class DBUtils {
         Properties properties = new Properties();
 
         try {
-            fileInputStream = new FileInputStream("src/main/resources/configDB.properties");
+            fileInputStream = new FileInputStream("C:\\Users\\Артем\\IdeaProjects\\TaskForRTKIT\\src\\main\\resources\\configDB.properties");
             properties.load(fileInputStream);
 
             dbUser = properties.getProperty("db.user");
