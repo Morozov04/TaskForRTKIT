@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Школьный журнал OpenAPI спецификация
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+    description: Dev server
+paths:
+  /persons/grades/avg/{group}:
+    get:
+      summary: Метод получения списка средних оценок каждого ученика в указанном классе
+      tags: 
+        - Grades
+      parameters:
+        - name: group
+          in: path
+          description: Номер класса
+          required: true
+          schema:
+            type: string
+            enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      responses:
+        '200':
+          description: Успешный ответ со списком средних оценок
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GradesAVG"
+                
+        '400':
+          description: Некорректные параметры запроса
+  
+        '500':
+          description: Внутренняя ошибка сервера
+    
+        
+  /persons/grades/:
+    post:
+      summary: Метод изменение оценки конкретного ученика (по id) и конкретного предмета
+      tags: 
+        - Grades
+      parameters:
+        - in: query
+          name: studentId
+          required: true
+          schema:
+            type: string
+          description: Идентификатор ученика
+        - in: query
+          name: physics
+          schema:
+            type: integer
+            enum: [1, 2, 3, 4, 5]
+          description: Оценка по физике
+        - in: query
+          name: math
+          schema:
+            type: integer
+            enum: [1, 2, 3, 4, 5]
+          description: Оценка по математике
+        - in: query
+          name: rus
+          schema:
+            type: integer
+            enum: [1, 2, 3, 4, 5]
+          description: Оценка по русскому языку
+        - in: query
+          name: literature
+          schema:
+            type: integer
+            enum: [1, 2, 3, 4, 5]
+          description: Оценка по литературе
+        - in: query
+          name: geometry
+          schema:
+            type: string
+            enum: [1, 2, 3, 4, 5]
+          description: Оценка по геометрии
+        - in: query
+          name: informatics
+          schema:
+            type: integer
+            enum: [1, 2, 3, 4, 5]
+          description: Оценка по информатике
+      responses:
+        '200':
+          description: Успешный запрос 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grades"
+              
+        '400':
+          description: Некорректные параметры запроса
+        '500':
+          description: Внутренняя ошибка сервера
+          
+components:
+  schemas:
+    GradesAVG:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          average_grade:
+            type: string
+    Grades:
+      type: object
+      properties:
+        id:
+          type: string
+        subjectGrades:
+          type: object
+          properties:
+            physicsGrade:
+              type: integer
+            mathematicsGrade:
+              type: integer
+            rusGrade:
+              type: integer
+            literatureGrade:
+              type: integer
+            geometryGrade:
+              type: integer
+          required: [physicsGrade, mathematicsGrade, rusGrade, literatureGrade, geometryGrade]
+      required: [id, subjectGrades]

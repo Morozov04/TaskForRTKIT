@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/persons/grades/avg"})
+@WebServlet(urlPatterns = {"/persons/grades/avg/*"})
 public class AverageGradesServlet extends HttpServlet {
 
     @Override
@@ -20,20 +20,18 @@ public class AverageGradesServlet extends HttpServlet {
         var mapper = new ObjectMapper();
         try {
             DBUtils.createConnection();
-            String group = req.getParameter("group");
-            if (group != null) {
-                if (!group.matches("[1-9]|1[0-2]")) throw new NumberFormatException();
-                Map<String, Double> map = SQLMethods.calculateAverageGradeEachPerson(group);
-                try (var output = resp.getWriter()) {
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.setContentType("application/json");
-                    output.write(mapper.writeValueAsString(map));
-                    output.flush();
-                }
+            String group = req.getPathInfo().substring(1);
+            if (!group.matches("[1-9]|1[0-2]")) throw new NumberFormatException();
+            Map<String, Double> map = SQLMethods.calculateAverageGradeEachPerson(group);
+            try (var output = resp.getWriter()) {
+                resp.setCharacterEncoding("UTF-8");
+                resp.setContentType("application/json");
+                output.write(mapper.writeValueAsString(map));
+                output.flush();
             }
         } catch (NumberFormatException e) {
         resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
-        resp.getWriter().println("Error: The grade entered must be a number.");
+        resp.getWriter().println("Error: The entered class must be a number [1-12].");
         } catch (Exception e) {
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500 Internal Server Error
         resp.getWriter().println("Server error: " + e.getMessage());

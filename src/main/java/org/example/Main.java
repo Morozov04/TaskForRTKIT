@@ -15,6 +15,11 @@ package org.example;
  * <p>src/main/resources/student_create.sql - скрипт создания\инициализации таблиц в БД.
  * <p>
  * <p>Новый функционал (работа с БД) - классы: DBUntil, CRUDUtils, SQLMethods.
+ * <p>
+ * <p>Task 4.
+ * <p>src/main/resources/schoolMagazine-1.0.0-swagger.yaml - OpenAPI спецификация для методов.
+ * <p>
+ * <p>Новый функционал (работа с HttpServlet) - классы: AverageGradesServlet, UpdateGradeServlet.
  */
 
 public class Main {
