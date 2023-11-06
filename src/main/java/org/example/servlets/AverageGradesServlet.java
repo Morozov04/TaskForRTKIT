@@ -19,9 +19,9 @@ public class AverageGradesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var mapper = new ObjectMapper();
         try {
+            DBUtils.createConnection();
             String group = req.getParameter("group");
             if (group != null) {
-                DBUtils.createConnection();
                 if (!group.matches("[1-9]|1[0-2]")) throw new NumberFormatException();
                 Map<String, Double> map = SQLMethods.calculateAverageGradeEachPerson(group);
                 try (var output = resp.getWriter()) {

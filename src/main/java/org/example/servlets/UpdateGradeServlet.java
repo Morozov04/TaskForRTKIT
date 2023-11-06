@@ -17,9 +17,9 @@ public class UpdateGradeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            DBUtils.createConnection();
             String idPerson = req.getParameter("personId");
                 if (idPerson != null) {
-                    DBUtils.createConnection();
                     Person person = CRUDUtils.getPerson(idPerson);
 
                     String[] subjects = {"physics", "math", "rus", "literature", "geometry", "informatics"};
@@ -40,7 +40,6 @@ public class UpdateGradeServlet extends HttpServlet {
                             }
                         }
                     }
-
                     CRUDUtils.updateGrades(person.getSubjectGrades(), idPerson);
                     resp.getWriter().println("Data updated.");
                 }
