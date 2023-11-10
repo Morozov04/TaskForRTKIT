@@ -7,9 +7,7 @@ import java.util.Properties;
 
 public class DBUtils {
 
-    private static Connection connection;
-
-    public static void createConnection() {
+    public static Connection getConnection() {
 
         String dbUser = null, dbPassword = null, dbURL = null;
 
@@ -28,9 +26,11 @@ public class DBUtils {
             e.printStackTrace();
         }
 
+        Connection connection = null;
+
         try {
             Class.forName("org.postgresql.Driver");
-            if (dbURL != null & dbUser != null & dbPassword != null){
+            if (dbURL != null & dbUser != null & dbPassword != null) {
                 connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
             }
         } catch (SQLException e) {
@@ -38,20 +38,6 @@ public class DBUtils {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println("Соединение открыто!");
-    }
-
-    public static void closeConnection(){
-        try {
-            connection.close();
-            System.out.println("Соединение закрыто!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static Connection getConn() {
         return connection;
     }
 }

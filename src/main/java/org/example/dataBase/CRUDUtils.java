@@ -12,14 +12,11 @@ public class CRUDUtils {
         Person person = null;
         SubjectGrades grades;
         List<Integer> list = new LinkedList<>();
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-
-                PreparedStatement assessment = connection.prepareStatement("SELECT assessment FROM assessment WHERE idStudent = ? ORDER BY idSubject ASC;");
-                PreparedStatement personInfo = connection.prepareStatement("SELECT * FROM student WHERE id = ?;");
-
+        try (Connection connection = DBUtils.getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement assessment = connection.prepareStatement("SELECT assessment FROM assessment WHERE idStudent = ? ORDER BY idSubject ASC;");
+                 PreparedStatement personInfo = connection.prepareStatement("SELECT * FROM student WHERE id = ?;")
+            ) {
                 assessment.setInt(1,Integer.parseInt(id));
                 ResultSet resultSetA = assessment.executeQuery();
                 while (resultSetA.next()){list.add(resultSetA.getInt("assessment")); }
@@ -46,14 +43,12 @@ public class CRUDUtils {
     }
 
     public static void addPerson(Person person) {
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-                PreparedStatement personInfo = connection.prepareStatement(
-                        "INSERT INTO student (lastName, firstName, age, classNumber) VALUES (?, ?, ?, ?);",
-                        Statement.RETURN_GENERATED_KEYS);
-
+        try (Connection connection = DBUtils.getConnection()){
+            connection.setAutoCommit(false);
+            try (PreparedStatement personInfo = connection.prepareStatement(
+                    "INSERT INTO student (lastName, firstName, age, classNumber) VALUES (?, ?, ?, ?);",
+                    Statement.RETURN_GENERATED_KEYS)
+            ) {
                 personInfo.setString(1, person.getFamily());
                 personInfo.setString(2, person.getName());
                 personInfo.setInt(3, person.getAge());
@@ -87,14 +82,11 @@ public class CRUDUtils {
     }
 
     public static void deletePerson(String id) {
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-
-                PreparedStatement assessment = connection.prepareStatement("DELETE FROM assessment WHERE idStudent = ?;");
-                PreparedStatement personInfo = connection.prepareStatement("DELETE FROM student WHERE id = ?;");
-
+        try (Connection connection = DBUtils.getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement assessment = connection.prepareStatement("DELETE FROM assessment WHERE idStudent = ?;");
+                 PreparedStatement personInfo = connection.prepareStatement("DELETE FROM student WHERE id = ?;")
+            ) {
                 assessment.setInt(1, Integer.parseInt(id));
                 assessment.executeUpdate();
                 personInfo.setInt(1, Integer.parseInt(id));
@@ -111,18 +103,15 @@ public class CRUDUtils {
     }
 
     public static void updateGrades(SubjectGrades grades, String id) {
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-
-                //индусский код)
-                PreparedStatement pPhysics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 1;");
-                PreparedStatement pMathematics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 2;");
-                PreparedStatement pRus = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 3;");
-                PreparedStatement pLiterature = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 4;");
-                PreparedStatement pGeometry = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 5;");
-                PreparedStatement pInformatics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 6;");
+        try (Connection connection = DBUtils.getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement pPhysics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 1;");
+                 PreparedStatement pMathematics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 2;");
+                 PreparedStatement pRus = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 3;");
+                 PreparedStatement pLiterature = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 4;");
+                 PreparedStatement pGeometry = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 5;");
+                 PreparedStatement pInformatics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 6;")
+            ) {
 
                 pPhysics.setInt(1, grades.getPhysicsGrade());
                 pPhysics.setInt(2, Integer.parseInt(id));

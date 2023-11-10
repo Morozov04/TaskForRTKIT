@@ -4,6 +4,8 @@ import org.example.command.CommandBuilder;
 import org.example.command.StudentService;
 import org.example.dataBase.DBUtils;
 import org.example.dataLoad.*;
+import org.example.dto.PersonDto;
+import org.example.person.Person;
 
 
 /**
@@ -32,14 +34,10 @@ public class Main {
         StudentService studentService = new StudentService(fileDataLoader);
         CommandBuilder commandBuilder = new CommandBuilder(studentService);
 
-        DBUtils.createConnection();
-
        try {
             commandBuilder.createCommand(args[0]).execute();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage() + " | Нет аргументов.");
         }
-
-        DBUtils.closeConnection();
     }
 }
