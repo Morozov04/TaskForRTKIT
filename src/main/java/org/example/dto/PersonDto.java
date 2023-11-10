@@ -1,27 +1,57 @@
 package org.example.dto;
 
-import org.example.person.Person;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 public class PersonDto {
-
-    public static List<Map<Integer, Double>> avgGradeInSubjects = new ArrayList<>();
+    private String family;
+    private String name;
+    private int age;
+    private int group;
     private double avg;
-    private Person person;
 
-    public PersonDto(Person person) {
-        this.person = person;
+    public PersonDto(String family, String name, int age, int group) {
+        this.family = family;
+        this.name = name;
+        this.age = age;
+        this.group = group;
     }
 
-    public Person getPerson() {
-        return person;
+    public PersonDto(String family, String name, int age, int group, double avg) {
+        this.family = family;
+        this.name = name;
+        this.age = age;
+        this.group = group;
+        this.avg = avg;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 
     public double getAvg() {
@@ -35,7 +65,19 @@ public class PersonDto {
     @Override
     public String toString() {
         return "PersonDto{" +
-                "person=" + person +
+                "family='" + family + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", group=" + group +
+                '}';
+    }
+
+    public String ToStringAVG(){
+        return "PersonDto{" +
+                "family='" + family + '\'' +
+                ", name='" + name + '\'' +
+                ", group=" + group +
+                ", avg=" + avg +
                 '}';
     }
 }

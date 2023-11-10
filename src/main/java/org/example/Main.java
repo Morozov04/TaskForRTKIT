@@ -2,10 +2,7 @@ package org.example;
 
 import org.example.command.CommandBuilder;
 import org.example.command.StudentService;
-import org.example.dataBase.DBUtils;
 import org.example.dataLoad.*;
-import org.example.dto.PersonDto;
-import org.example.person.Person;
 
 
 /**

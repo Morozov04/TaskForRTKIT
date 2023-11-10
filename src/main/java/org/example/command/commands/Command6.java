@@ -18,8 +18,6 @@ public class Command6 implements ICommand {
 
         List<PersonDto> persons = SQLMethods.searchPersonAverageGradeBySurname(in.nextLine());
 
-        for (PersonDto element : persons) {
-            System.out.println(element + " | AVG = " + element.getAvg());
-        }
+        for (PersonDto element : persons) {System.out.println(element.ToStringAVG());}
     }
 }

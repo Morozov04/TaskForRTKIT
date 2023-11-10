@@ -13,12 +13,12 @@ import java.util.Map;
 public class SQLMethods {
     private static final String CALCULATE_AVERAGE_GRADE_QUERY = "SELECT s.classNumber, AVG(a.assessment) AS averageResult FROM student s JOIN assessment a " +
             "ON s.id = a.idStudent WHERE s.classNumber = ? GROUP BY s.classNumber;";
-    private static final String SEARCH_PERSON_BY_ASSESSMENT_QUERY = "SELECT * FROM student s WHERE s.age > ? AND s.age < ? AND NOT EXISTS (SELECT * FROM subject sub " +
+    private static final String SEARCH_PERSON_BY_ASSESSMENT_QUERY = "SELECT s.lastName, s.firstName, s.age, s.classNumber FROM student s WHERE s.age > ? AND s.age < ? AND NOT EXISTS (SELECT * FROM subject sub " +
             "WHERE NOT EXISTS (SELECT * FROM assessment a WHERE a.idStudent = s.id AND a.idSubject = sub.id AND a.assessment = ?));";
-    private static final String SEARCH_PERSON_AVERAGE_GRADE_BY_SURNAME = "SELECT s.id, AVG(a.assessment) AS averageResult " +
-            "FROM student s JOIN assessment a ON s.id = a.idStudent WHERE s.lastName = ? GROUP BY s.id;";
-
-    public static void calculateAverageGrade(String group) {
+    private static final String SEARCH_PERSON_AVERAGE_GRADE_BY_SURNAME = "SELECT s.lastName, s.firstName, s.age, s.classNumber, AVG(a.assessment) AS averageResult " +
+            "FROM student s JOIN assessment a ON s.id = a.idStudent WHERE s.lastName = ? GROUP BY s.lastName, s.firstName, s.age, s.classNumber;";
+    public static Map<Integer, Double> calculateAverageGrade(String group) {
+        Map<Integer, Double> map = new HashMap<>();
         try (Connection connection = DBUtils.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CALCULATE_AVERAGE_GRADE_QUERY)
         ) {
@@ -26,13 +26,12 @@ public class SQLMethods {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Map<Integer, Double> map = new HashMap<>();
                 map.put(resultSet.getInt("classNumber"), resultSet.getDouble("averageResult"));
-                PersonDto.avgGradeInSubjects.add(map);
             }
         } catch (Exception e) {
             System.out.println("Значение введено некорректно.");
         }
+        return map;
     }
 
     public static List<PersonDto> searchPersonByAssessment(String ageMin, String ageMax, String grade) {
@@ -46,7 +45,10 @@ public class SQLMethods {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                PersonDto personDto = new PersonDto(CRUDUtils.getPerson(resultSet.getString("id")));
+                PersonDto personDto = new PersonDto(resultSet.getString("lastName"),
+                                                    resultSet.getString("firstName"),
+                                                    resultSet.getInt("age"),
+                                                    resultSet.getInt("classNumber"));
                 list.add(personDto);
             }
         } catch (Exception e) {
@@ -65,8 +67,11 @@ public class SQLMethods {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                PersonDto personDto = new PersonDto(CRUDUtils.getPerson(resultSet.getString("id")));
-                personDto.setAvg(resultSet.getDouble("averageResult"));
+                PersonDto personDto = new PersonDto(resultSet.getString("lastName"),
+                        resultSet.getString("firstName"),
+                        resultSet.getInt("classNumber"),
+                        resultSet.getInt("age"),
+                        resultSet.getDouble("averageResult"));
                 list.add(personDto);
             }
         } catch (Exception e) {
