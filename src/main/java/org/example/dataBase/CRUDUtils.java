@@ -8,17 +8,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CRUDUtils {
-    public static Person getPerson(String id) {
+
+    private ConnectionBuilder connectionBuilder;
+
+    public void setConnectionBuilder(ConnectionBuilder connectionBuilder) {
+        this.connectionBuilder = connectionBuilder;
+    }
+
+    private Connection getConnection() throws SQLException {
+        return connectionBuilder.getConnection();
+    }
+
+    public Person getPerson(String id) {
         Person person = null;
         SubjectGrades grades;
         List<Integer> list = new LinkedList<>();
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-
-                PreparedStatement assessment = connection.prepareStatement("SELECT assessment FROM assessment WHERE idStudent = ? ORDER BY idSubject ASC;");
-                PreparedStatement personInfo = connection.prepareStatement("SELECT * FROM student WHERE id = ?;");
+        try (Connection connection = getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement assessment = connection.prepareStatement("SELECT assessment FROM assessment WHERE idStudent = ? ORDER BY idSubject ASC;");
+                 PreparedStatement personInfo = connection.prepareStatement("SELECT * FROM student WHERE id = ?;")) {
 
                 assessment.setInt(1,Integer.parseInt(id));
                 ResultSet resultSetA = assessment.executeQuery();
@@ -45,14 +53,12 @@ public class CRUDUtils {
         return person;
     }
 
-    public static void addPerson(Person person) {
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-                PreparedStatement personInfo = connection.prepareStatement(
-                        "INSERT INTO student (lastName, firstName, age, classNumber) VALUES (?, ?, ?, ?);",
-                        Statement.RETURN_GENERATED_KEYS);
+    public void addPerson(Person person) {
+        try (Connection connection = getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement personInfo = connection.prepareStatement(
+                    "INSERT INTO student (lastName, firstName, age, classNumber) VALUES (?, ?, ?, ?);",
+                    Statement.RETURN_GENERATED_KEYS)) {
 
                 personInfo.setString(1, person.getFamily());
                 personInfo.setString(2, person.getName());
@@ -86,14 +92,11 @@ public class CRUDUtils {
         }
     }
 
-    public static void deletePerson(String id) {
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-
-                PreparedStatement assessment = connection.prepareStatement("DELETE FROM assessment WHERE idStudent = ?;");
-                PreparedStatement personInfo = connection.prepareStatement("DELETE FROM student WHERE id = ?;");
+    public void deletePerson(String id) {
+        try (Connection connection = getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement assessment = connection.prepareStatement("DELETE FROM assessment WHERE idStudent = ?;");
+                 PreparedStatement personInfo = connection.prepareStatement("DELETE FROM student WHERE id = ?;")) {
 
                 assessment.setInt(1, Integer.parseInt(id));
                 assessment.executeUpdate();
@@ -110,20 +113,16 @@ public class CRUDUtils {
         }
     }
 
-    public static void updateGrades(SubjectGrades grades, String id) {
-        try {
-            Connection connection = DBUtils.getConn();
-            try {
-                connection.setAutoCommit(false);
-
-                //индусский код)
-                PreparedStatement pPhysics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 1;");
-                PreparedStatement pMathematics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 2;");
-                PreparedStatement pRus = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 3;");
-                PreparedStatement pLiterature = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 4;");
-                PreparedStatement pGeometry = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 5;");
-                PreparedStatement pInformatics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 6;");
-
+    public void updateGrades(SubjectGrades grades, String id) {
+        try (Connection connection = getConnection()) {
+            connection.setAutoCommit(false);
+            try ( PreparedStatement pPhysics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 1;");
+                  PreparedStatement pMathematics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 2;");
+                  PreparedStatement pRus = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 3;");
+                  PreparedStatement pLiterature = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 4;");
+                  PreparedStatement pGeometry = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 5;");
+                  PreparedStatement pInformatics = connection.prepareStatement("UPDATE assessment SET assessment = ? WHERE idStudent = ? AND idSubject = 6;");
+            ) {
                 pPhysics.setInt(1, grades.getPhysicsGrade());
                 pPhysics.setInt(2, Integer.parseInt(id));
                 pPhysics.executeUpdate();

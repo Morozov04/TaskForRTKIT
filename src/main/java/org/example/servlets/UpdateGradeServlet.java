@@ -2,7 +2,7 @@ package org.example.servlets;
 
 import com.google.gson.Gson;
 import org.example.dataBase.CRUDUtils;
-import org.example.dataBase.DBUtils;
+import org.example.dataBase.PoolConnectionBuilder;
 import org.example.person.Person;
 import org.example.person.SubjectGrades;
 
@@ -35,11 +35,16 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/persons/grades/*"})
 public class UpdateGradeServlet extends HttpServlet {
 
+    private CRUDUtils crudUtils;
+    @Override
+    public void init() throws ServletException {
+        crudUtils = new CRUDUtils();
+        crudUtils.setConnectionBuilder(new PoolConnectionBuilder());
+    }
+
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            DBUtils.createConnection();
-
             Gson gson = new Gson();
             Request requestData;
 
@@ -47,10 +52,10 @@ public class UpdateGradeServlet extends HttpServlet {
                 requestData = gson.fromJson(new String(input.readAllBytes()), Request.class);
             }
 
-            if (!requestData.getId().matches("\\d+")) throw new NumberFormatException();
-            Person person = CRUDUtils.getPerson(requestData.getId());
+            if (!requestData.id().matches("\\d+")) throw new NumberFormatException();
+            Person person = crudUtils.getPerson(requestData.id());
 
-            SubjectGrades requestDataGrades = requestData.getSubjectGrades();
+            SubjectGrades requestDataGrades = requestData.subjectGrades();
             SubjectGrades personGrades = person.getSubjectGrades();
 
             int[] grades = {
@@ -76,7 +81,7 @@ public class UpdateGradeServlet extends HttpServlet {
                 }
             }
 
-            String jsonRequest = gson.toJson(new Request(requestData.getId(), personGrades));
+            String jsonRequest = gson.toJson(new Request(requestData.id(), personGrades));
 
             try (var output = resp.getWriter()) {
                 resp.setContentType("application/json");
@@ -84,7 +89,7 @@ public class UpdateGradeServlet extends HttpServlet {
                 output.flush();
             }
 
-            CRUDUtils.updateGrades(personGrades, requestData.getId());
+            crudUtils.updateGrades(personGrades, requestData.id());
 
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
@@ -92,26 +97,7 @@ public class UpdateGradeServlet extends HttpServlet {
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500 Internal Server Error
             resp.getWriter().println("Server error: " + e.getMessage());
-        } finally {
-               DBUtils.closeConnection();
         }
     }
-}
-
-class Request {
-    private String id;
-    private SubjectGrades subjectGrades;
-
-    public Request(String id, SubjectGrades subjectGrades) {
-        this.id = id;
-        this.subjectGrades = subjectGrades;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public SubjectGrades getSubjectGrades() {
-        return subjectGrades;
-    }
+    record Request(String id, SubjectGrades subjectGrades) {}
 }

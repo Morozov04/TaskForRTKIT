@@ -1,7 +1,7 @@
 package org.example.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.dataBase.DBUtils;
+import org.example.dataBase.PoolConnectionBuilder;
 import org.example.methods.SQLMethods;
 
 import javax.servlet.ServletException;
@@ -15,14 +15,20 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/persons/grades/avg/*"})
 public class AverageGradesServlet extends HttpServlet {
 
+    private SQLMethods sqlMethods;
+    @Override
+    public void init() throws ServletException {
+        sqlMethods = new SQLMethods();
+        sqlMethods.setConnectionBuilder(new PoolConnectionBuilder());
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var mapper = new ObjectMapper();
         try {
-            DBUtils.createConnection();
             String group = req.getPathInfo().substring(1);
             if (!group.matches("[1-9]|1[0-2]")) throw new NumberFormatException();
-            Map<String, Double> map = SQLMethods.calculateAverageGradeEachPerson(group);
+            Map<String, Double> map = sqlMethods.calculateAverageGradeEachPerson(group);
             try (var output = resp.getWriter()) {
                 resp.setCharacterEncoding("UTF-8");
                 resp.setContentType("application/json");
@@ -35,8 +41,6 @@ public class AverageGradesServlet extends HttpServlet {
         } catch (Exception e) {
         resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500 Internal Server Error
         resp.getWriter().println("Server error: " + e.getMessage());
-        } finally {
-        DBUtils.closeConnection();
         }
     }
 }

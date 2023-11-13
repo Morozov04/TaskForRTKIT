@@ -1,7 +1,7 @@
 package org.example;
 
 /**
- * Task 2.
+ * <p>Task 2.
  * <p>avgGrInClass- Вычисление средней оценки в старших классах (10 и 11) - Command1.
  * <p>searchExStd - Поиск всех отличников, старше 14 лет - Command2.
  * <p>searchByLN - Поиск ученика по фамилии (фамилия ученика задается через консоль) - Command3.
@@ -11,7 +11,6 @@ package org.example;
  * <p>searchExStdDB - Поиск всех отличников, старше 14 лет [Из БД] - Command5.
  * <p>searchByLNDB - Вычисление средней оценки ученика по указанной фамилии [Из БД] - Command6.
  * <p>
- * <p>src/main/resources/configDB.properties - конфиг для подключения к БД.
  * <p>src/main/resources/student_create.sql - скрипт создания\инициализации таблиц в БД.
  * <p>
  * <p>Новый функционал (работа с БД) - классы: DBUntil, CRUDUtils, SQLMethods.
