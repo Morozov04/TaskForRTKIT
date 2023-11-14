@@ -1,20 +1,20 @@
 openapi: 3.0.0
 info:
   title: Школьный журнал OpenAPI спецификация
-  version: 1.0.0
+  version: 1.0.1
 servers:
   - url: http://localhost:8080/
     description: Dev server
 paths:
-  /persons/grades/avg/{group}:
+  /groups/{id_group}/students/avg_marks/:
     get:
       summary: Метод получения списка средних оценок каждого ученика в указанном классе
       tags: 
         - Grades
       parameters:
-        - name: group
+        - name: id_group
           in: path
-          description: Номер класса
+          description: Id класса
           required: true
           schema:
             type: string
@@ -34,7 +34,7 @@ paths:
           description: Внутренняя ошибка сервера
     
         
-  /persons/grades/:
+  /groups/students/marks/:
     post:
       summary: Метод изменение оценки конкретного ученика (по id) и конкретного предмета
       tags: 
