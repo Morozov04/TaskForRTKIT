@@ -1,6 +1,6 @@
 package org.example.methods;
 
-import org.example.dataBase.ConnectionBuilder;
+import org.example.dataBase.conn.ConnectionBuilder;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class SQLMethods {
     private static final String SEARCH_PERSON_AVERAGE_GRADE_BY_SURNAME = "SELECT s.lastName, s.firstName, s.age, s.classNumber, AVG(a.assessment) AS averageResult " +
             "FROM student s JOIN assessment a ON s.id = a.idStudent WHERE s.lastName = ? GROUP BY s.lastName, s.firstName, s.age, s.classNumber;";
 
-    private org.example.dataBase.ConnectionBuilder connectionBuilder;
+    private ConnectionBuilder connectionBuilder;
 
     public void setConnectionBuilder(ConnectionBuilder connectionBuilder) {
         this.connectionBuilder = connectionBuilder;

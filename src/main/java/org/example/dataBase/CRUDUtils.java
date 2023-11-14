@@ -1,5 +1,6 @@
 package org.example.dataBase;
 
+import org.example.dataBase.conn.ConnectionBuilder;
 import org.example.person.Person;
 import org.example.person.SubjectGrades;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class CRUDUtils {
 
-    private ConnectionBuilder connectionBuilder;
+    private org.example.dataBase.conn.ConnectionBuilder connectionBuilder;
 
     public void setConnectionBuilder(ConnectionBuilder connectionBuilder) {
         this.connectionBuilder = connectionBuilder;

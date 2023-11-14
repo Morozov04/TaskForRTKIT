@@ -1,4 +1,6 @@
-package org.example.dataBase;
+package org.example.dataBase.conn;
+
+import org.example.dataBase.conn.ConnectionBuilder;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -7,7 +9,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class PoolConnectionBuilder implements ConnectionBuilder{
+public class PoolConnectionBuilder implements ConnectionBuilder {
     DataSource dataSource;
 
     public PoolConnectionBuilder() {

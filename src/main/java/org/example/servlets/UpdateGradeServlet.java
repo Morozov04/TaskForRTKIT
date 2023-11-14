@@ -2,7 +2,7 @@ package org.example.servlets;
 
 import com.google.gson.Gson;
 import org.example.dataBase.CRUDUtils;
-import org.example.dataBase.PoolConnectionBuilder;
+import org.example.dataBase.conn.PoolConnectionBuilder;
 import org.example.person.Person;
 import org.example.person.SubjectGrades;
 
@@ -32,7 +32,7 @@ import java.io.IOException;
         }
 }*/
 
-@WebServlet(urlPatterns = {"/persons/grades/*"})
+@WebServlet(urlPatterns = {"/groups/students/marks/*"})
 public class UpdateGradeServlet extends HttpServlet {
 
     private CRUDUtils crudUtils;
